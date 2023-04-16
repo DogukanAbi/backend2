@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
@@ -25,7 +26,7 @@ const createDefaultAdmin = async () => {
   }
 };
 
-const create = async (req, res) => {
+const signUp = async (req, res) => {
   try {
     const existingCustomer = await User.findOne({ email: req.body.email });
     if (existingCustomer) {
@@ -52,7 +53,42 @@ const create = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(401).json({ message: "Incorrect email" });
+    }
+
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    if (!isValidPassword) {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.json({
+      token: token,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while logging in" });
+  }
+};
+
 module.exports = {
   createDefaultAdmin,
-  create,
+  signUp,
+  login,
 };
