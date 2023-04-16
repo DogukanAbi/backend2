@@ -2,8 +2,15 @@ const Product = require("../models/product");
 
 const create = async (req, res) => {
   try {
-    const { name, description, tag, price, stock } = req.body;
-    const newProduct = new Product({ name, description, tag, price, stock });
+    const { name, description, tag, price, stock, image } = req.body;
+    const newProduct = new Product({
+      name,
+      description,
+      tag,
+      price,
+      stock,
+      image,
+    });
     const savedProduct = await newProduct.save();
 
     res.status(201).json({ message: "Created product", product: savedProduct });
@@ -35,10 +42,10 @@ const retrieve = async (req, res) => {
 const update = async (req, res) => {
   try {
     const id = req.params.id;
-    const { name, description, tag, price, stock } = req.body;
+    const { name, description, tag, price, stock, image } = req.body;
     const updatedProduct = await Product.findByIdAndUpdate(
       id,
-      { name, description, tag, price, stock },
+      { name, description, tag, price, stock, image },
       { new: true }
     );
 
