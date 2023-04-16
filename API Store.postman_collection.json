@@ -1,0 +1,542 @@
+{
+	"info": {
+		"_postman_id": "d80cac20-ccc0-41b4-bc8f-1dedef72416c",
+		"name": "API Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12412746"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign up (client) - no auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dogukan\",\n    \"email\": \"customer@example.com\",\n    \"password\": \"Abcd1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/signUp",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (client, admin) - no auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"Abcd1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "List clients (admin) -auth",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token_admin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/users",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Clients",
+					"item": [
+						{
+							"name": "Retrieve profile (client) - auth",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token_client}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/users/profile",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update profile (client) - auth",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token_client}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Dogukan\",\n    \"email\": \"customer@example.com\",\n    \"password\": \"Abcd1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/users/profile",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create product (admin) - auth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sports shirt 8\",\n    \"description\": \"Sports shirt 8 collection 2023\",\n    \"tag\": \"sports_shirt_8\",\n    \"price\": 25.50,\n    \"stock\": 200,\n    \"image\": \"http://path-image-example.jpge\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/products",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve product (client, admin) - no auth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/products/643b46549ce6ebe83a060440",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								"643b46549ce6ebe83a060440"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product (admin) - auth",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sports shirt 6\",\n    \"description\": \"Sports shirt 6 collection 2025\",\n    \"tag\": \"sports_shirt_6\",\n    \"price\": 25.50,\n    \"stock\": 200,\n    \"image\": \"http://path-image-example.jpge\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/products/643b46549ce6ebe83a060440",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								"643b46549ce6ebe83a060440"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product (admin) - auth",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/products/643b3e7aefece8da6de82736",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								"643b3e7aefece8da6de82736"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List products (client, admin) - no auth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/products/",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping cart",
+			"item": [
+				{
+					"name": "Retrive cart (client) - auth",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": \"\",\n    \"quantity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add product to cart  (client) - auth",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": \"643b3d61a2e9d99f3843ab20\",\n    \"quantity\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change quantity of a product to cart  (client) - auth",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": \"643b3d61a2e9d99f3843ab20\",\n    \"quantity\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product to cart (client) - auth",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_client}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\": \"643b3d61a2e9d99f3843ab20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cart",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Root request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{localhost}}",
+					"host": [
+						"{{localhost}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "http://0.0.0.0:5000/api"
+		},
+		{
+			"key": "token_client",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2I5MzBhZDkwOTNkYWY1MDQ0YTJmNyIsIm5hbWUiOiJEb2d1a2FuIiwiZW1haWwiOiJjdXN0b21lckBleGFtcGxlLmNvbSIsInJvbGUiOiJjbGllbnQiLCJjYXJ0IjoiNjQzYjkzMGFkOTA5M2RhZjUwNDRhMmY4IiwiaWF0IjoxNjgxNjI3MjU0LCJleHAiOjE2ODE2MzA4NTR9.tCLYCuDNnPkEWt73yLodhh5sJhbh8N93LclupzP6Huc"
+		},
+		{
+			"key": "token_admin",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2I5MmQzZDkwOTNkYWY1MDQ0YTJmMSIsIm5hbWUiOiJEb2d1a2FuIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJyb2xlIjoiYWRtaW4iLCJjYXJ0IjoiNjQzYjkyZDNkOTA5M2RhZjUwNDRhMmYyIiwiaWF0IjoxNjgxNjI3MjE2LCJleHAiOjE2ODE2MzA4MTZ9.oi0Mb77Msb0K5RACwu3P8e2o3o_tVoeCDi5mK9JYv7g"
+		}
+	]
+}
