@@ -14,5 +14,10 @@ router.put(
   AuthMiddleware.authMiddleware(["client"]),
   CartController.update
 );
+router.delete(
+  "/",
+  AuthMiddleware.authMiddleware(["client"]),
+  CartController.deleted
+);
 
 module.exports = router;

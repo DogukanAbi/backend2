@@ -55,4 +55,36 @@ const update = async (req, res) => {
   }
 };
 
-module.exports = { retrieve, update };
+const deleted = async (req, res) => {
+  try {
+    const productId = req.body.product_id;
+    const userId = req.user.id;
+    const cartId = req.user.cart;
+
+    const user = await User.findById(userId);
+    const cart = await Cart.findById(cartId);
+    const product = await Product.findById(productId);
+    const existingProductIndex = cart.products.findIndex(
+      (item) => item.product_name === product.name
+    );
+    if (existingProductIndex == -1) {
+      return res.status(404).json({
+        message: "Product not found in cart",
+        cart: cart,
+      });
+    } else {
+      cart.products.splice(existingProductIndex, 1);
+    }
+    await cart.save();
+    await user.save();
+
+    res.json({ message: "Product removed from cart", cart: cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred while removing the product to the cart",
+    });
+  }
+};
+
+module.exports = { retrieve, update, deleted };
