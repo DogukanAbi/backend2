@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   role: { type: String, enum: ["admin", "client"], default: "client" },
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cart",
+  },
   create_at: {
     type: Date,
     default: Date.now(),

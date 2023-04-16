@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const Cart = require("../models/cart");
 
 const createDefaultAdmin = async () => {
   try {
@@ -42,6 +43,13 @@ const signUp = async (req, res) => {
       password: hashedPassword,
     });
 
+    const cart = new Cart({
+      products: [],
+      total: 0,
+    });
+
+    client.cart = cart._id;
+    await cart.save();
     await client.save();
 
     res
