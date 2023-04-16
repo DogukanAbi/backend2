@@ -19,6 +19,12 @@ const createDefaultAdmin = async () => {
         password: hashedPassword,
         role: "admin",
       });
+      const cart = new Cart({
+        products: [],
+        total: 0,
+      });
+      admin.cart = cart._id;
+      await cart.save();
       await admin.save();
       console.log("Admin user created successfully");
     }
@@ -78,7 +84,13 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, name: user.name, email: user.email, role: user.role },
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        cart: user.cart._id,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -88,6 +100,7 @@ const login = async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      cart: user.cart._id,
     });
   } catch (error) {
     console.error(error);
