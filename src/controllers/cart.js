@@ -40,9 +40,18 @@ const update = async (req, res) => {
       cart.products.push({
         product: product,
         product_name: product.name,
+        product_price: product.price,
         quantity: quantity,
       });
     }
+
+    let totalCost = 0;
+    cart.products.forEach((product) => {
+      const productCost = product.product_price * product.quantity;
+      totalCost += productCost;
+    });
+    cart.total = totalCost;
+
     await cart.save();
     await user.save();
 
@@ -75,6 +84,14 @@ const deleted = async (req, res) => {
     } else {
       cart.products.splice(existingProductIndex, 1);
     }
+
+    let totalCost = 0;
+    cart.products.forEach((product) => {
+      const productCost = product.product_price * product.quantity;
+      totalCost += productCost;
+    });
+    cart.total = totalCost;
+
     await cart.save();
     await user.save();
 
