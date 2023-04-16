@@ -9,5 +9,10 @@ router.get(
   AuthMiddleware.authMiddleware(["client"]),
   CartController.retrieve
 );
+router.put(
+  "/",
+  AuthMiddleware.authMiddleware(["client"]),
+  CartController.update
+);
 
 module.exports = router;
